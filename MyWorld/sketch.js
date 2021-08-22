@@ -36,12 +36,12 @@ const experienceDetails = [
 const projectDetails = [
   {
     id : 1,
-    title : "High School",
+    title : "To be added",
     content : ""
   },
   {
     id : 1,
-    title : "Degree",
+    title : "To be added",
     content : ""
   }
 
