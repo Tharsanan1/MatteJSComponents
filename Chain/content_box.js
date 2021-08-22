@@ -1,28 +1,48 @@
-function ContentBox(x, y, width, height, content, contentColor, boxColor, world) {
+function ContentBox(x, y, width, height, title, content, contentColor, boxColor, world, isCircle = false) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    this.title = title;
     this.content = content;
     this.contentColor = contentColor;
     this.boxColor = boxColor;
+    this.world = world;
+    this.isCircle = isCircle;
 
-    this.body = Matter.Bodies.rectangle(this.x, this.y, this.width, this.height);
+    if (!isCircle) {
+        this.body = Matter.Bodies.rectangle(this.x, this.y, this.width, this.height);
+    } else {
+        this.body = Matter.Bodies.circle(this.x, this.y, this.width/2);
+    }
     this.body.restitution = 0.5
     Matter.World.add(world, this.body)
     this.display = function () {
         fill(this.boxColor);
+        push();
         Helpers.drawBody(this.body);
-
+        stroke(0, 100, 0);
+        strokeWeight(2);
+        Helpers.drawStroke(this.body);
+        noStroke();
         const pos = this.body.position;
         const angle = this.body.angle;
-        push();
         translate(pos.x, pos.y);
-        // rotate(angle);
+        if (isCircle) {
+            rotate(angle);
+        }
         textAlign(CENTER, CENTER);
-        textSize(width / this.content.length);
+        textSize(width / this.title.length * 3 / 2);
         fill(this.contentColor)
-        text(this.content, 0, 0);
+        text(this.title, 0, 0);
         pop();
+    }
+
+    this.removeFromWorld = function () {
+        Matter.World.remove(this.world, this.body);
+    }
+
+    this.quickClicked = function () {
+        console.log(this.body);
     }
 }

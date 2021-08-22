@@ -19,6 +19,16 @@ const Helpers = (function() {
     }
   }
 
+  function drawStroke(body) {
+    // push();
+    noFill();
+    beginShape();
+    for (let i = 0; i < body.vertices.length; i++) {
+      vertex(body.vertices[i].x, body.vertices[i].y);
+    }
+    endShape(CLOSE);
+    // pop();
+  }
 
   function drawBodies(bodies) {
     for (let i = 0; i < bodies.length; i++) {
@@ -112,6 +122,7 @@ const Helpers = (function() {
     drawSprite: drawSprite,
     drawText: drawText,
     bodyFromPath: bodyFromPath,
+    drawStroke:drawStroke
   }
 
 }());

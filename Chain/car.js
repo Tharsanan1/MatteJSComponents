@@ -44,10 +44,10 @@ function Car (x, y, wheelRadius, containerWidth, containerHeight, world) {
   }
 
   this.goRight = function () {
-      Matter.Body.setAngularVelocity(this.wheelOne.body, 0.5);
+      Matter.Body.setAngularVelocity(this.wheelOne.body, 0.6);
   }
 
   this.goLeft = function () {
-      Matter.Body.setAngularVelocity(this.wheelOne.body, -0.5);
+      Matter.Body.setAngularVelocity(this.wheelOne.body, -0.6);
   }
 }
