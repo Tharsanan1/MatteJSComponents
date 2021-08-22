@@ -42,7 +42,24 @@ function ContentBox(x, y, width, height, title, content, contentColor, boxColor,
         Matter.World.remove(this.world, this.body);
     }
 
-    this.quickClicked = function () {
-        console.log(this.body);
+    this.quickClicked = function (event) {
+        let mousePosition;
+        if (event.type === "touchend") {
+            mousePosition = {x : mouseX, y : mouseY};
+        } else {
+            mousePosition = {x : event.x, y : event.y};
+        }
+        let position = this.body.position;
+        if (this.isCircle) {
+            let distance = dist(mousePosition.x, mousePosition.y, position.x, position.y);
+            if (distance < width/2) {console.log("alert")
+                showAlert(this.content);
+            }
+        } else {
+            if (((position.x - this.width/2) < mousePosition.x) && ((position.x + this.width/2) > mousePosition.x) &&
+                ((position.y - this.height/2) < mousePosition.y) && ((position.y + this.height/2) > mousePosition.y)) {
+                    showAlert(this.content);
+                }
+        }
     }
 }

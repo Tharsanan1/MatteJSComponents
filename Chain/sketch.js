@@ -5,12 +5,12 @@ const educationDetails = [
   {
     id : 1,
     title : "High School",
-    content : ""
+    content : "<h3>High School</h3> <p>T/ R.K.M Koneswera Hindu college, Trincomalee</p> <p>Advance level : Mathematics stream</p> <p>Subjects and final results : </p> <ul> <li>Mathematics : <b>A</b></li> <li>Physics : <b>A</b></li> <li>Chemistry : <b>A</b></li> <li>Distric rank : <b>1</b></li> <li>Island rank : <b>11</b></li> <li>Z-score : <b>2.8424</b></li> </ul> "
   },
   {
-    id : 1,
+    id : 2,
     title : "Degree",
-    content : ""
+    content : "<h3>Bachelor's degree</h3> <p>University of Moratuwa</p> <p>Computer science and Engineering (Hons) : (2015 - 2019)</p> <p>GPA : <b>3.80</b></p> "
   }
 
 ]
@@ -18,15 +18,19 @@ const educationDetails = [
 const experienceDetails = [
   {
     id : 1,
-    title : "High School",
-    content : ""
+    title : "Sysco LABS",
+    content : "<h3>Software engineering intern at Sysco LABS</h3> <p>2018 (July - December)</p> <ul> <li>Designed and developed cloud server and resource management system for their internal usage.</li> <li>Dockerized multiple products to support ECR deployments.</li> <li>Developed and automated unit tests.</li> <li>Followed SCRUM process framework.</li> <li>Worked with JIRA, Bitbucket, AWS, Docker, Jenkins, Selenium Java, Node, React.</li> </ul> "
   },
   {
-    id : 1,
-    title : "Degree",
-    content : ""
+    id : 2,
+    title : "G S O C",
+    content : "<h3>Google Summer of Code student participant - 2019</h3> <ul> <li>Designed and developed Intellij plugin for CPAchecker tool using Gitlab as a version control system.</li> <li>Used Gitlab CI/CD for testing code style, bugs and for deployment.</li> <li>Used Gradle build tool.</li> </ul> "
+  },
+  {
+    id : 3,
+    title : "Enactor",
+    content : "<h3>Software Engineer at Enactor - 2020 Feb - now</h3> <ul> <li>3DS server implementation.</li> <li>Implemented eCommerce web payment feature in Enactor Payment Portal.</li> <li>Visa, Mastercard and Amex accreditation certification for 3DS server.</li> <li>Elavon and Amex payment authorization accreditation certification for Enactor Payment Portal.</li> <li>Implemented Klarna support to Enactor Payment portal</li> <li>Implemented Enactor Pay By Link.</li> <li>Implemented identity server - OAuth 2.0</li> </ul> "
   }
-
 ]
 
 const projectDetails = [
@@ -71,40 +75,66 @@ let educationContents = [];
 let experienceContents = [];
 let projectContents = [];
 
+let goRightDown = false;
+let goLeftDown = false;
+let buttonEducation;
 function setup () {
+  pixelDensity(1); // If its not set mobile devices show the animation in slow motion. Probably issue with p5 js rendering.
   const canvas = createCanvas(windowWidth, windowHeight)
 
-  let buttonEducation = createButton('Education')
-  buttonEducation.position(windowWidth - 140, 20)
+  buttonEducation = createButton('Education')
+  buttonEducation.position(windowWidth - 220, 20)
   buttonEducation.mousePressed(educationClicked)
+  buttonEducation.size(160,60);
 
   let buttonCloseEducation = createButton('&#10006;')
-  buttonCloseEducation.position(windowWidth - 40, 20)
-  buttonCloseEducation.mousePressed(educationCloseClicked)
+  buttonCloseEducation.position(windowWidth - 50, 20)
+  buttonCloseEducation.mousePressed(educationCloseClicked);
+  buttonCloseEducation.size(40, 60);
 
   let buttonExperience = createButton('Experiences')
-  buttonExperience.position(windowWidth - 140, 60)
+  buttonExperience.position(windowWidth - 220, 100)
   buttonExperience.mousePressed(experienceClicked)
+  buttonExperience.size(160,60);
 
   let buttonCloseExperience = createButton('&#10006;')
-  buttonCloseExperience.position(windowWidth - 40, 60)
-  buttonCloseExperience.mousePressed(experienceCloseClicked)
+  buttonCloseExperience.position(windowWidth - 50, 100)
+  buttonCloseExperience.mousePressed(experienceCloseClicked);
+  buttonCloseExperience.size(40, 60);
 
   let buttonProjects = createButton('Projects')
-  buttonProjects.position(windowWidth - 140, 100)
-  buttonProjects.mousePressed(projectsClicked)
+  buttonProjects.position(windowWidth - 220, 180)
+  buttonProjects.mousePressed(projectsClicked);
+  buttonProjects.size(160,60);
 
   let buttonCloseProjects = createButton('&#10006;')
-  buttonCloseProjects.position(windowWidth - 40, 100)
-  buttonCloseProjects.mousePressed(projectsCloseClicked)
+  buttonCloseProjects.position(windowWidth - 50, 180)
+  buttonCloseProjects.mousePressed(projectsCloseClicked);
+  buttonCloseProjects.size(40,60);
 
   let buttonGoRight = createButton('>')
-  buttonGoRight.position(windowWidth - 100, 140)
+  buttonGoRight.position(windowWidth - 100, 260)
   buttonGoRight.mousePressed(goRight)
+  buttonGoRight.size(90, 60);
+
+  buttonGoRight.elt.addEventListener("touchstart", function () {
+    goRightDown = true;
+  }); 
+  buttonGoRight.elt.addEventListener("touchend", function () {
+    goRightDown = false;
+  });  
 
   let buttonGoLeft = createButton('<')
-  buttonGoLeft.position(windowWidth - 140, 140)
+  buttonGoLeft.position(windowWidth - 220, 260)
   buttonGoLeft.mousePressed(goLeft)
+  buttonGoLeft.size(90, 60);
+  buttonGoLeft.elt.addEventListener("touchstart", function () {
+    goLeftDown = true;
+  }); 
+  buttonGoLeft.elt.addEventListener("touchend", function () {
+    goLeftDown = false;
+  });  
+
   // create an engine
   engine = Engine.create()
 
@@ -124,12 +154,11 @@ function setup () {
 
   exampleContent = new ContentBox(100, 100, 100, 100, 'hello', '', 50, 255, engine.world);
 
-  car = new Car(300, 300, 30, 100, 60, engine.world)
+  car = new Car(300, 300, 30, 100, 60, engine.world, 'Hello', 100)
   car.init()
 
   // ground
   ground = Bodies.rectangle(width / 2, height - 15, width, 30, {isStatic: true})
-  console.log(ground)
   World.add(engine.world, [ground])
   ground.friction = 1;
 
@@ -159,6 +188,12 @@ function setup () {
 }
 
 function draw () {
+  if (goRightDown) {
+    car.goRight()
+  }
+  if (goLeftDown) {
+    car.goLeft()
+  }
   background(0)
 
   fill(255)
@@ -194,11 +229,14 @@ function mousePressed () {
 }
 
 function goRight () {
-  car.goRight()
+  console.log("right")
+  goRightDown = true;
+  // car.goRight()
 }
 
 function goLeft () {
-  car.goLeft()
+  goLeftDown = true;
+  // car.goLeft()
 }
 
 function educationClicked () {
@@ -251,12 +289,14 @@ function projectsCloseClicked () {
 }
 
 let lastPressedTime = 0;
-const timeForQuickClick = 150;
+const timeForQuickClick = 200;
 function mouseClicked (event) {
+  console.log("click")
+  goLeftDown = false;
+  goRightDown = false;
   let now = Date.now();
   let diff = now - lastPressedTime;
   if (diff < timeForQuickClick) {
-    console.log("q")
       quickClick(event);
   } 
 }
@@ -266,27 +306,30 @@ function mousePressed () {
 }
 
 function touchStarted()  {
-    lastPressedTime = Date.now();
+  lastPressedTime = Date.now();
 }
 
 function touchEnded() {
   let now = Date.now();
   let diff = now - lastPressedTime;
   if (diff < timeForQuickClick) {
+    console.log("q")
       quickClick(event);
   } 
 }
 
 function quickClick(event) {
   educationContents.forEach(element => {
-    element.quickClicked();
+    element.quickClicked(event);
   });
 
   experienceContents.forEach(element => {
-    element.quickClicked();
+    element.quickClicked(event);
   });
 
   projectContents.forEach(element => {
-    element.quickClicked();
+    element.quickClicked(event);
   });
 }
+
+

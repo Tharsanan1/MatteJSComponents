@@ -1,4 +1,4 @@
-function Car (x, y, wheelRadius, containerWidth, containerHeight, world) {
+function Car (x, y, wheelRadius, containerWidth, containerHeight, world, title, titleColor) {
   this.x = x
   this.y = y
   this.wheelRadius = wheelRadius
@@ -9,10 +9,12 @@ function Car (x, y, wheelRadius, containerWidth, containerHeight, world) {
   this.container
   this.world = world
   this.constraints = []
+  this.title = title;
+  this.titleColor = titleColor;
   this.init = function () {
     this.wheelOne = new Wheel(x, y, this.wheelRadius, world, 2, 3)
     this.wheelTwo = new Wheel(x + containerWidth, y, this.wheelRadius, world, 2, 3)
-    this.container = new Container((x + (containerWidth / 2)), (y - (containerHeight / 2)), containerHeight, containerWidth, 2, 1, this.world)
+    this.container = new Container((x + (containerWidth / 2)), (y - (containerHeight / 2)), containerHeight, containerWidth, 2, 1, this.world, this.title, this.titleColor)
     let constraintWithFirstWheel = Constraint.create({
       bodyA: this.container.body,
       bodyB: this.wheelOne.body,
@@ -44,10 +46,10 @@ function Car (x, y, wheelRadius, containerWidth, containerHeight, world) {
   }
 
   this.goRight = function () {
-      Matter.Body.setAngularVelocity(this.wheelOne.body, 0.6);
+      Matter.Body.setAngularVelocity(this.wheelOne.body, 0.3);
   }
 
   this.goLeft = function () {
-      Matter.Body.setAngularVelocity(this.wheelOne.body, -0.6);
+      Matter.Body.setAngularVelocity(this.wheelOne.body, -0.3);
   }
 }
