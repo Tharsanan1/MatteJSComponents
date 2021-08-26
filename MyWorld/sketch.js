@@ -36,15 +36,78 @@ const experienceDetails = [
 const projectDetails = [
   {
     id : 1,
-    title : "To be added",
-    content : ""
+    title : "SIDDHI-LLVM",
+    content : "<h3>SIDDHI-LLVM</h3> <ul> <li>It is my Final year group project.</li> <li>Designed multiple architectures to solve the performance problem that already existed in Siddhi stream processing engine.</li> <li>Developed a static compiler for Siddhi query language to produce synchronous stream processor.</li> <li>Designed LLVM passes to automatically convert sync code to asynchronous code on demand.</li> <li>Implemented genetic algorithm to automatically fine tune stream processor related configurations.</li> <li>Technologies : <b>ANTLR , LLVM , CLANG , JAVA , PYTHON , C++</b></li> </ul> "
   },
   {
-    id : 1,
-    title : "To be added",
-    content : ""
+    id : 2,
+    title : "INTELLIJ PLUGIN",
+    content : "<h3>CPACHECKER INTELLIJ PLUGIN</h3> <ul> <li>Google summer of code project.</li> <li>Proposed and developed an Intellij plugin to support CPAchecker framework in CLion IDE.</li> <li>Used Gitlab CI/CD pipeline to check code style, bugs and for continuous deployment.</li> <li>Technologies : <b>JAVA , GRADLE, GITLAB-CI/CD</b></li> </ul> "
+  },
+  {
+    id : 3,
+    title : "AWS-TRACKER",
+    content : "<h3>AWS-TRACKER</h3> <ul> <li>Internship group project.</li> <li>Designed and developed AWS resources management system for Sysco LABS internal usage.</li> <li>Used Gitlab CI/CD pipeline to check code style, bugs and for continuous deployment.</li> <li>Implemented CI/CD pipeline in Jenkins for testing and deployment.</li> <li>Technologies : <b>NODE , MONGO-DB , REACT</b></li> </ul> "
+  },
+  {
+    id : 4,
+    title : "DENGAI",
+    content : "<h3>DENGAI</h3> <ul> <li>Academic group project.</li> <li>Implemented dengue cases prediction model using random forest, support vector regression, XGBoost and LSTM.</li> <li>Increased the accuracy of the prediction by bagging and boosting above implemented models.</li> <li>Technology : <b>PYTHON</b></li> </ul> "
+  },
+  {
+    id : 5,
+    title : "SYSTEM SCHEDULER",
+    content : "<h3>OPERATING SYSTEM SCHEDULER</h3> <ul> <li>Designed and developed a visual simulation for round robin, shortest job next, shortest remaining time next and priority scheduling.</li> <li>Implemented functionalities for control the simulation speed and change scheduling options real-time.</li> <li>Technology : <b>C#</b></li> </ul> "
+  },
+  {
+    id : 6,
+    title : "CONTACT MANAGER",
+    content : "<h3>CONTACT DETAILS MANAGER</h3> <ul> <li>Android application to manage visiting cards by converting them to digital form. Used object character recognition.</li> <li>Implemented an algorithm, based on tree data structure, to convert English sentences to card details.</li> </ul> "
   }
+]
 
+let smallProjectDetails = [
+  
+  {
+    id : "1",
+    title : "   1   ",
+    content : '<b>Image Encryptor - (ReactJS)</b> - <a href="https://tharsanan1.github.io/ImageEncryptionWeb/">link</a>',
+  },
+  {
+    id : "1",
+    title : "   2   ",
+    content : '<b>CVMaker - (ReactJS, Canvas)</b> -  <a href="https://github.com/Tharsanan1/CVMaker">link</a>',
+  },
+  {
+    id : "1",
+    title : "   3   ",
+    content : '<b>Game Engine Paandi - (Java, Node, ReactJS)</b> - <a href="https://github.com/Tharsanan1/PaandiTamilGameHelper">link</a>',
+  },
+  {
+    id : "1",
+    title : "   4   ",
+    content : '<b>Virtual KeyBoard - (Python, OpenCV)</b> - <a href="https://github.com/Tharsanan1/VirtualKeyboard">link</a>',
+  },
+  {
+    id : "1",
+    title : "   5   ",
+    content : '<b>BiometricAuthentication - (Java)</b> - <a href="https://github.com/Tharsanan1/BiometricAuthentication">link</a>',
+  },
+  {
+    id : "1",
+    title : "   6   ",
+    content : '<b>Interview Scheduler - (Java)</b> - <a href="https://github.com/Tharsanan1/InterviewScheduler">link</a>',
+  },
+  {
+    id : "1",
+    title : "   7   ",
+    content : '<b>Authentication system - (NodeJS, MongoDB)</b> - <a href="http://tharsanan.cyou/authentication/sign-in/">link</a>',
+  },
+  {
+    id : "1",
+    title : "  8  ",
+    content : '<b>Reverse proxy server using socket connections. - (NodeJS, MongoDB)</b> - <a href="https://github.com/Tharsanan1/SocketConnectedServers">link</a>'
+  }
 ]
 
 
@@ -74,6 +137,7 @@ let exampleContent;
 let educationContents = [];
 let experienceContents = [];
 let projectContents = [];
+let smallProjectContents = [];
 
 let goRightDown = false;
 let goLeftDown = false;
@@ -112,8 +176,18 @@ function setup () {
   buttonCloseProjects.mousePressed(projectsCloseClicked);
   buttonCloseProjects.size(40,60);
 
+  let buttonSmallProjects = createButton('Pet Projects')
+  buttonSmallProjects.position(windowWidth - 220, 260)
+  buttonSmallProjects.mousePressed(smallProjectsClicked);
+  buttonSmallProjects.size(160,60);
+
+  let buttonCloseSmallProjects = createButton('&#10006;')
+  buttonCloseSmallProjects.position(windowWidth - 50, 260)
+  buttonCloseSmallProjects.mousePressed(smallProjectsCloseClicked);
+  buttonCloseSmallProjects.size(40,60);
+
   let buttonGoRight = createButton('>')
-  buttonGoRight.position(windowWidth - 100, 260)
+  buttonGoRight.position(windowWidth - 100, 340)
   buttonGoRight.mousePressed(goRight)
   buttonGoRight.size(90, 60);
 
@@ -125,7 +199,7 @@ function setup () {
   });  
 
   let buttonGoLeft = createButton('<')
-  buttonGoLeft.position(windowWidth - 220, 260)
+  buttonGoLeft.position(windowWidth - 220, 340)
   buttonGoLeft.mousePressed(goLeft)
   buttonGoLeft.size(90, 60);
   buttonGoLeft.elt.addEventListener("touchstart", function () {
@@ -154,7 +228,7 @@ function setup () {
 
   exampleContent = new ContentBox(100, 100, 100, 100, 'hello', '', 50, 255, engine.world);
 
-  car = new Car(300, 300, 30, 100, 60, engine.world, 'Hello', 100)
+  car = new Car(300, 300, 30, 100, 60, engine.world)
   car.init()
 
   // ground
@@ -215,6 +289,10 @@ function draw () {
     element.display();
   });
 
+  smallProjectContents.forEach(element => {
+    element.display();
+  });
+
   // draw ground.
   noStroke()
   fill(128)
@@ -243,7 +321,7 @@ function educationClicked () {
   removeAllFromArray(educationContents);
   educationContents = [];
   educationDetails.forEach(element => {
-    let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 80, 80, element.title, element.content, 50, 255, engine.world, true);
+    let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 80, 80, element.title, element.content, 50, '#ccddff', engine.world, false);
     educationContents.push(contentBox);
   });
 }
@@ -252,7 +330,7 @@ function experienceClicked () {
   removeAllFromArray(experienceContents);
   experienceContents = [];
   experienceDetails.forEach(element => {
-    let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 80, 80, element.title, element.content, 50, 255, engine.world);
+    let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 80, 80, element.title, element.content, 50, '#ccffeb', engine.world);
     experienceContents.push(contentBox);
   });
 }
@@ -261,8 +339,17 @@ function projectsClicked () {
   removeAllFromArray(projectContents);
   projectContents = [];
   projectDetails.forEach(element => {
-    let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 80, 80, element.title, element.content, 50, 255, engine.world);
+    let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 80, 80, element.title, element.content, 50, '#ffffe6', engine.world);
     projectContents.push(contentBox);
+  });
+}
+
+function smallProjectsClicked () {
+  removeAllFromArray(smallProjectContents);
+  smallProjectContents = [];
+  smallProjectDetails.forEach(element => {
+    let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 80, 80, element.title, element.content, 50, '#e6fff9', engine.world, true);
+    smallProjectContents.push(contentBox);
   });
 }
 
@@ -286,6 +373,11 @@ function experienceCloseClicked () {
 function projectsCloseClicked () {
   removeAllFromArray(projectContents);
   projectContents = [];
+}
+
+function smallProjectsCloseClicked () {
+  removeAllFromArray(smallProjectContents);
+  smallProjectContents = [];
 }
 
 let lastPressedTime = 0;
@@ -328,6 +420,10 @@ function quickClick(event) {
   });
 
   projectContents.forEach(element => {
+    element.quickClicked(event);
+  });
+
+  smallProjectContents.forEach(element => {
     element.quickClicked(event);
   });
 }
