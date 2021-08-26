@@ -352,7 +352,7 @@ function smallProjectsClicked () {
     smallProjectContents.push(contentBox);
   });
 
-  for (let index = 0; index < 100; index++) {
+  for (let index = 0; index < 50; index++) {
     let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 20, 20, '', '', 50, '#e6fff9', engine.world, true);
     smallProjectContents.push(contentBox);
     
