@@ -351,6 +351,12 @@ function smallProjectsClicked () {
     let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 80, 80, element.title, element.content, 50, '#e6fff9', engine.world, true);
     smallProjectContents.push(contentBox);
   });
+
+  for (let index = 0; index < 100; index++) {
+    let contentBox = new ContentBox(random(windowWidth/5, windowWidth * 4 / 5), random(windowHeight/5, windowHeight * 2 / 5), 20, 20, '', '', 50, '#e6fff9', engine.world, true);
+    smallProjectContents.push(contentBox);
+    
+  }
 }
 
 function removeAllFromArray(arr) {

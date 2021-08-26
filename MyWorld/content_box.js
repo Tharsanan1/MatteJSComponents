@@ -17,6 +17,8 @@ function ContentBox(x, y, width, height, title, content, contentColor, boxColor,
     }
     this.body.restitution = 0.5
     Matter.World.add(world, this.body)
+
+
     this.display = function () {
         fill(this.boxColor);
         push();
@@ -50,6 +52,9 @@ function ContentBox(x, y, width, height, title, content, contentColor, boxColor,
             mousePosition = {x : event.x, y : event.y};
         }
         let position = this.body.position;
+        if (!this.content) {
+            return;
+        }
         if (this.isCircle) {
             let distance = dist(mousePosition.x, mousePosition.y, position.x, position.y);
             if (distance < width/2) {console.log("alert")
